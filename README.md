@@ -280,7 +280,7 @@ menuconfig options allow setting of some parameters at compile time.
 - Status LED GPIO which indicates if the device is in AP mode.
 - Password for AP mode (enables WPA2PSK) to prevent unwanted access should the device go into AP mode when it is unable to connect to its configured Access Point.
 
-# To compile this application, you need to
+#### To compile this application, you need to
 1. Install ESP-IDF (e.g. via VSCode plugin)
 2. go to the IDF directory (e.g. `$HOME/esp/esp-idf`)
 4. Run `install.sh`
