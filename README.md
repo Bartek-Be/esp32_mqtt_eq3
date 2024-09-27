@@ -283,8 +283,9 @@ menuconfig options allow setting of some parameters at compile time.
 #### To compile this application, you need to
 1. Install ESP-IDF (e.g. via VSCode plugin)
 2. go to the IDF directory (e.g. `$HOME/esp/esp-idf`)
-4. Run `install.sh`
+4. Run `./install.sh esp32`
 5. Go to your project directory, activate the IDF using `. $HOME/esp/esp-idf/export.sh`  
 6. Run `idf.py build`
+7. Then `idf.py -p PORT flash`
 
 When flashing after compilation, please note that the resulting files are located at `build/ota_data_initial.bin`, `build/bootloader/bootloader.bin`, `build/esp32_mqtt_eq3.bin` and `build/partition_table/partition-table.bin`.
