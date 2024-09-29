@@ -274,12 +274,6 @@ Note: *possible incomplete list because of rebranding eq-3 thermostats*
 
 ## Compiling
 
-menuconfig options allow setting of some parameters at compile time.
-
-- The boot-mode GPIO pin (normally a button on GPIO 0 on many ESP32 platforms) used to force the device into AP mode at boot.
-- Status LED GPIO which indicates if the device is in AP mode.
-- Password for AP mode (enables WPA2PSK) to prevent unwanted access should the device go into AP mode when it is unable to connect to its configured Access Point.
-
 ### To compile this application, you need to
 1. Download ESP-IDF (e.g. `git clone -b v5.2.2 --recursive https://github.com/espressif/esp-idf.git $HOME/esp/esp-idf`)
 2. Go to the IDF directory (e.g. `$HOME/esp/esp-idf`)
@@ -289,3 +283,9 @@ menuconfig options allow setting of some parameters at compile time.
 6. And then `idf.py -p PORT flash`
 
 When flashing after compilation, please note that the resulting files are located at `build/ota_data_initial.bin`, `build/bootloader/bootloader.bin`, `build/esp32_mqtt_eq3.bin` and `build/partition_table/partition-table.bin`.
+
+menuconfig options allow setting of some parameters at compile time.
+
+- The boot-mode GPIO pin (normally a button on GPIO 0 on many ESP32 platforms) used to force the device into AP mode at boot.
+- Status LED GPIO which indicates if the device is in AP mode.
+- Password for AP mode (enables WPA2PSK) to prevent unwanted access should the device go into AP mode when it is unable to connect to its configured Access Point.
