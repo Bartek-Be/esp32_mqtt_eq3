@@ -108,7 +108,7 @@ where the device is indicated by its bluetooth address (MAC)
 
 | Parameter | Description | Parameters | Examples | Stable since |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| settime | sets the current time on the valve | settime has an optional parameter of the hexadecimal encoded current time.<br>parm is 12 characters hexadecimal yymmddhhMMss (e.g. 13010c0c0a00 is 2019/Jan/12 12:00.00)<br>if no parameter is submitted and ntp is enabled the ntp time (with timezone offset) will be used | *`<mqttid>radin/trv/<eq-3-address>/settemp 13010c0c0a00`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/settemp 13010c0c0a00` | v1.20 |
+| settime | sets the current time on the valve | settime has an optional parameter of the hexadecimal encoded current time.<br>parm is 12 characters hexadecimal yymmddhhMMss (e.g. 13010c0c0a00 is 2019/Jan/12 12:00.00)<br>if no parameter is submitted and ntp is enabled the ntp time (with timezone offset) will be used | *`<mqttid>radin/trv/<eq-3-address>/settime 13010c0c0a00`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/settime 13010c0c0a00` | v1.20 |
 | boost | sets the boost mode | -none - | *`<mqttid>radin/trv/<eq-3-address>/boost`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/boost` | v1.20 |
 | unboost | reset to unboost mode | -none - | *`<mqttid>radin/trv/<eq-3-address>/unboost`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/unboost` | v1.20 |
 | lock | locks the front-panel controls | -none - | *`<mqttid>radin/trv/<eq-3-address>/lock`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/lock` | v1.20 |
