@@ -19,7 +19,7 @@ const char pagefooter[] = "<table style=\"margin:1em auto;\"> \
 </table> \
 </div> \
 <div style='text-align:center;font-size:12px;'><hr/><a href='https://github.com/softypit/esp32_mqtt_eq3' target='_blank' style='color:#aaa;'>EQ3-MQTT-ESP32 "EQ3_MAJVER"."EQ3_MINVER""EQ3_EXTRAVER" by SoftyPIT</a><br> \
-<a href='https://github.com/softypit/esp32_mqtt_eq3' target='_blank' style='color:#aaa;'>fork</a></div> \
+<a href='https://github.com/Bartek-Be/esp32_mqtt_eq3' target='_blank' style='color:#aaa;'>fork</a></div> \
 </body> \
 </html>" ;
 
