@@ -40,7 +40,7 @@ The main problem with centrally controlling EQ-3 valves is the limited range of 
   - [Credits](#credits)
     - [Source and continuative reverse engineering by](#source-and-continuative-reverse-engineering-by)
     - [Notes](#notes)
-    - [Compiling](#compiling)
+  - [Compiling](#compiling)
 
 ## Description
 
@@ -272,7 +272,7 @@ Note: *possible incomplete list because of rebranding eq-3 thermostats*
 - [@ul-gh](https://github.com/ul-gh)
 - Peter Becker ([@floyddotnet](https://github.com/floyddotnet))
 
-### Compiling
+## Compiling
 
 menuconfig options allow setting of some parameters at compile time.
 
@@ -280,12 +280,12 @@ menuconfig options allow setting of some parameters at compile time.
 - Status LED GPIO which indicates if the device is in AP mode.
 - Password for AP mode (enables WPA2PSK) to prevent unwanted access should the device go into AP mode when it is unable to connect to its configured Access Point.
 
-#### To compile this application, you need to
-1. Install ESP-IDF (e.g. via VSCode plugin)
-2. go to the IDF directory (e.g. `$HOME/esp/esp-idf`)
-4. Run `./install.sh esp32`
-5. Go to your project directory, activate the IDF using `. $HOME/esp/esp-idf/export.sh`  
-6. Run `idf.py build`
-7. Then `idf.py -p PORT flash`
+### To compile this application, you need to
+1. Download ESP-IDF (e.g. `git clone -b v5.2.2 --recursive https://github.com/espressif/esp-idf.git $HOME/esp/esp-idf`)
+2. Go to the IDF directory (e.g. `$HOME/esp/esp-idf`)
+3. Run `./install.sh esp32`
+4. Go to your project directory, activate the IDF using `. $HOME/esp/esp-idf/export.sh`  
+5. Run `idf.py build`
+6. And then `idf.py -p PORT flash`
 
 When flashing after compilation, please note that the resulting files are located at `build/ota_data_initial.bin`, `build/bootloader/bootloader.bin`, `build/esp32_mqtt_eq3.bin` and `build/partition_table/partition-table.bin`.
