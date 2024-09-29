@@ -3,7 +3,7 @@
 
 #define EQ3_MAJVER "1"
 #define EQ3_MINVER "80"
-#define EQ3_EXTRAVER ""
+#define EQ3_EXTRAVER "-fork"
 
 void eq3_log_init(void);
 void eq3_add_log(char *log);
