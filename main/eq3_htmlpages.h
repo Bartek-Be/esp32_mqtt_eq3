@@ -18,7 +18,7 @@ const char pagefooter[] = "<table style=\"margin:1em auto;\"> \
 <tr><td><a href=\"/scan\">Rescan for EQ3 devices</a></td><td> | </td><td><a href=\"/restartnow\" style=\"color: rbg(255,0,0)\"><font color=\"FF0000\">Reboot ESP</font></a></td></tr> \
 </table> \
 </div> \
-<div style='text-align:center;font-size:12px;'><hr/><a href='https://github.com/softypit/esp32_mqtt_eq3' target='_blank' style='color:#aaa;'>EQ3-MQTT-ESP32 "EQ3_MAJVER"."EQ3_MINVER""EQ3_EXTRAVER" by SoftyPIT</a><br> \
+<div style='text-align:center;font-size:12px;'><hr/><a href='https://github.com/softypit/esp32_mqtt_eq3' target='_blank' style='color:#aaa;'>EQ3-MQTT-ESP32 "EQ3_MAJVER"."EQ3_MINVER""EQ3_EXTRAVER" by SoftyPIT</a><br/> \
 <a href='https://github.com/Bartek-Be/esp32_mqtt_eq3' target='_blank' style='color:#aaa;'>fork</a></div> \
 </body> \
 </html>" ;
