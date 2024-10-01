@@ -132,7 +132,9 @@ cJSON* generate_ha_valve_payload (char mac[6], char *id) {
     cJSON* identifiers = cJSON_AddArrayToObject (device, "identifiers");
     cJSON_AddItemToArray (identifiers, cJSON_CreateString (macstr));
     // "device_class": "power"
-    cJSON_AddStringToObject (root, "device_class", "power");
+    //cJSON_AddStringToObject (root, "device_class", "power");
+    // "default icon" instead device_class
+    cJSON_AddStringToObject (root, "icon", "mdi:valve");
     // "unit_of_measurement": "%"
     cJSON_AddStringToObject (root, "unit_of_measurement", "%");
     // "state_topic": "eq3_radout/status/XX:XX:XX:YY:YY:YY",
