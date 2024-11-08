@@ -22,7 +22,9 @@ cJSON* generate_ha_therm_payload (char mac[6], char *id) {
 
     cJSON* root = cJSON_CreateObject ();
     // "name": "eq3_{{rawmacstr}}_thermostat"
-    char buffer[40];
+    //char buffer[40];
+    // larger buffer for discovery messages
+    char buffer[80];
     snprintf (buffer, sizeof (buffer), "%s%s_thermostat", id, rawmacstr);
     cJSON_AddStringToObject (root, "name", buffer);
     // "unique_id": "eq3_YYYYYY_thermostat"
