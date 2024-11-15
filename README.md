@@ -280,7 +280,8 @@ Note: *possible incomplete list because of rebranding eq-3 thermostats*
 3. Run `./install.sh esp32`
 4. Go to your project directory, activate the IDF using `. $HOME/esp/esp-idf/export.sh`  
 5. Run `idf.py build`
-6. And then `idf.py flash` (or esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0xd000 build/ota_data_initial.bin 0x1000 build/bootloader/bootloader.bin 0x10000 build/esp32_mqtt_eq3.bin 0x8000 build/partition_table/partition-table.bin)
+6. And then `idf.py flash`
+  -  or esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0xd000 build/ota_data_initial.bin 0x1000 build/bootloader/bootloader.bin 0x10000 build/esp32_mqtt_eq3.bin 0x8000 build/partition_table/partition-table.bin
 
 When flashing after compilation, please note that the resulting files are located at `build/ota_data_initial.bin`, `build/bootloader/bootloader.bin`, `build/esp32_mqtt_eq3.bin` and `build/partition_table/partition-table.bin`.
 
