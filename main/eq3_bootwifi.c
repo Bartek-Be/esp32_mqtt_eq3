@@ -370,7 +370,7 @@ static int mongoose_serve_log(struct mg_connection *nc){
         wridx += sprintf(&loglisthtml[wridx], loglisthead);
         for(int logcount = 0; logcount < numlogs; logcount++){
             //wridx += sprintf(&loglisthtml[wridx], loglistentry, log_entries[logcount]);
-            wridx += sprintf(&loglisthtml[wridx], "<tr><td>");
+            wridx += sprintf(&loglisthtml[wridx], "   <tr><td>");
             strncpy(&loglisthtml[wridx], log_entries[logcount], strlen(log_entries[logcount]));
             wridx += strlen(log_entries[logcount]);
             wridx += sprintf(&loglisthtml[wridx], "</td></tr>");

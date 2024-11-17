@@ -13,13 +13,15 @@ const char pageheader[] = R"EOF(
 
 const char pagefooter_a[] = R"EOF(
 <table style="margin:1em auto;">
+<tbody>
     <tr><td><a href="/command">Control EQ3 device</a></td><td> | </td><td><a href="/status" style="color: rbg(200,150,0)"><font color="C89600">Status</font></a></td></tr>
     <tr><td><a href="/viewlog">View EQ3 status log</a></td><td> | </td><td><a href="/config" style="color: rbg(200,150,0)"><font color="C89600">Configuration</font></a></td></tr>
     <tr><td><a href="/getdevices">List of EQ3 devices seen</a></td><td> | </td><td><a href="/upload" style="color: rbg(200,150,0)"><font color="C89600">Update software</font></a></td></tr>
     <tr><td><a href="/scan">Rescan for EQ3 devices</a></td><td> | </td><td><a href="/restartnow" style="color: rbg(255,0,0)"><font color="FF0000">Reboot ESP</font></a></td></tr>
+</tbody>
 </table>
-<div style="font-size:12px;">
-    <hr/><a href="https://github.com/softypit/esp32_mqtt_eq3" target="_blank" style="color:#aaa;">EQ3-MQTT-ESP32)EOF";
+<div style="font-size:12px;"><hr/>
+    <a href="https://github.com/softypit/esp32_mqtt_eq3" target="_blank" style="color:#aaa;">EQ3-MQTT-ESP32)EOF";
 
 const char pagefooter_b[] = " "EQ3_MAJVER"."EQ3_MINVER""EQ3_EXTRAVER" ";
 
@@ -39,30 +41,31 @@ const char pageemptyfooter[] = R"EOF(
 const char selectap[] = R"EOF(
 <h1>Select WiFi</h1>
 <form action="configSubmit" method="post">
-<table style="margin:1em auto;">
-<tbody>
-    <tr><td>SSID:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ssid" value="%s" /></td></tr>
-    <tr><td>Password:</td><td><input type="password" autocorrect="off" autocapitalize="none" name="password" value="%s" placeholder="hidden" /></td></tr>
-    <tr><td>MQTT URL:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="mqtturl" value="%s" /></td></tr>
-    <tr><td>MQTT username:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="mqttuser" value="%s" /></td></tr>
-    <tr><td>MQTT password:</td><td><input type="password" autocorrect="off" autocapitalize="none" name="mqttpass" value="%s" placeholder="hidden" /></td></tr>
-    <tr><td>MQTT ID:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="mqttid" value="%s" /></td></tr>
-    <tr><td>NTP enabled:</td><td><input type="checkbox" name="ntpenabled" value="true" %s/></td></tr>
-    <tr><td>NTP server 1:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ntpserver1" value="%s" /></td></tr>
-    <tr><td>NTP server 2:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ntpserver2" value="%s" /></td></tr>
-    <tr><td>Timezone:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ntptimezone" value="%s" /></td></tr>
-    <tr><td>IP address:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ip" value="%s" /></td></tr>
-    <tr><td>Gateway address:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="gw" value="%s" /></td></tr>
-    <tr><td>Netmask:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="netmask" value="%s" /></td></tr>
-    <tr><td>DNS server 1:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="dns1ip" value="%s" /></td></tr>
-    <tr><td>DNS server 2:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="dns2ip" value="%s" /></td></tr>
-</tbody>
-</table>
-<div><input type="submit" value="Submit"></div>
+    <table style="margin:1em auto;">
+    <tbody>
+        <tr><td>SSID:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ssid" value="%s" /></td></tr>
+        <tr><td>Password:</td><td><input type="password" autocorrect="off" autocapitalize="none" name="password" value="%s" placeholder="hidden" /></td></tr>
+        <tr><td>MQTT URL:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="mqtturl" value="%s" /></td></tr>
+        <tr><td>MQTT username:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="mqttuser" value="%s" /></td></tr>
+        <tr><td>MQTT password:</td><td><input type="password" autocorrect="off" autocapitalize="none" name="mqttpass" value="%s" placeholder="hidden" /></td></tr>
+        <tr><td>MQTT ID:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="mqttid" value="%s" /></td></tr>
+        <tr><td>NTP enabled:</td><td><input type="checkbox" name="ntpenabled" value="true" %s/></td></tr>
+        <tr><td>NTP server 1:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ntpserver1" value="%s" /></td></tr>
+        <tr><td>NTP server 2:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ntpserver2" value="%s" /></td></tr>
+        <tr><td>Timezone:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ntptimezone" value="%s" /></td></tr>
+        <tr><td>IP address:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="ip" value="%s" /></td></tr>
+        <tr><td>Gateway address:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="gw" value="%s" /></td></tr>
+        <tr><td>Netmask:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="netmask" value="%s" /></td></tr>
+        <tr><td>DNS server 1:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="dns1ip" value="%s" /></td></tr>
+        <tr><td>DNS server 2:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="dns2ip" value="%s" /></td></tr>
+    </tbody>
+    </table>
+    <div><input type="submit" value="Submit"></div>
 </form>
 <div>
-The IP address, gateway address and netmask are optional. If not supplied
-these values will be issued by the WiFi access point.
+    The IP address, gateway address and netmask are optional. If not supplied
+    these values will be issued by the WiFi access point.
+</div>
 )EOF";
 
 const char devlisthead[] = R"EOF(
@@ -70,9 +73,9 @@ const char devlisthead[] = R"EOF(
 <div><h1>EQ3 devices found</h1></div>
 <table style="margin:1em auto;">
 <tbody> 
-)EOF";
+    )EOF";
 
-const char devlistentry[] = "   <tr><td>Device:</td><td>%02X:%02X:%02X:%02X:%02X:%02X</td><td>rssi</td><td>%d</td></tr>";
+const char devlistentry[] = "<tr><td>Device:</td><td>%02X:%02X:%02X:%02X:%02X:%02X</td><td>rssi</td><td>%d</td></tr>";
 
 const char devlistfoot[] = R"EOF(
 </tbody>
@@ -88,7 +91,7 @@ const char loglisthead[] = R"EOF(<title>EQ3 device log</title>
 <div><h1>EQ3 device log</h1></div>
 <table style="margin:1em auto;">
 <tbody> 
-)EOF";
+    )EOF";
 
 //const char loglistentry[] = "<tr><td>%s</td></tr>";
 
@@ -100,11 +103,13 @@ const char loglistfoot[] = R"EOF(
 const char connectedstatus[] = R"EOF(
 <title>EQ3 status</title> 
 <div><h1>EQ3 relay status</h1></div>
-<table style="margin:1em auto;"> 
+<table style="margin:1em auto;">
+<tbody>
     <tr><td>MQTT URL:</td><td>%s</td></tr>
     <tr><td>MQTT ID:</td><td>%s</td></tr>
     <tr><td>MQTT status:</td><td>%s</td></tr>
     <tr><td>Uptime:</td><td>%d days %02d:%02d:%02d</td></tr>
+</tbody>
 </table>
 )EOF";
 
@@ -128,23 +133,25 @@ const char upload[] = R"EOF(
 
 const char uploadsuccess[] = R"EOF(
 <title>uploaded firmware</title> 
-<div><h1>Upload status</h1>
-Firmware upload success 
-%lu bytes transferred 
-<br><a href="/restartnow">Reboot ESP</a> to apply new image 
+<div>
+    <h1>Upload status</h1>
+    Firmware upload success
+    %lu bytes transferred
+    <br/><a href="/restartnow">Reboot ESP</a> to apply new image
 </div>
 )EOF";
 
 const char uploadfailed[] = R"EOF(
 <title>uploaded firmware</title> 
-<div><h1>Upload status</h1>
-Firmware upload failed 
+<div>
+    <h1>Upload status</h1>
+    Firmware upload failed
 </div>
 )EOF";
 
 const char uploadcomplete[] = R"EOF(
 <meta http-equiv="refresh" content="1;URL="/otastatus"">
-<title>upload complete</title> 
+<title>upload complete</title>
 <div><h1>Upload complete</h1></div>
 )EOF";
 
