@@ -167,7 +167,7 @@ const char rebooting[] = R"EOF(
 
 const char command_device_head[] = R"EOF(
 <title>EQ3 device log</title> 
-<div><h1>control EQ-3</h1></div>
+<div><h1>Control EQ-3</h1></div>
 <form action="sendCommand" method="post"> 
 <table style="margin:1em auto;">
 <tbody>
