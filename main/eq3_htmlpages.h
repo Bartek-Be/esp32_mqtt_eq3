@@ -12,7 +12,7 @@ const char pageheader[] = R"EOF(
 //<div style="zoom: 350%%;">";
 
 const char pagefooter[] = "<table style=\"margin:1em auto;\"> \
-<tr><td><a href=\"/command\">Control EQ3 device</a></td><td> | </td><td><a href='/status' style='color: rbg(200,150,0)'><font color='C89600'>Status</font></a></td></tr> \
+<tr><td><a href=\"/command\">Control EQ3 device</a></td><td> | </td><td><a href=\"/status\" style='color: rbg(200,150,0)'><font color=\"C89600\">Status</font></a></td></tr> \
 <tr><td><a href=\"/viewlog\">View EQ3 status log</a></td><td> | </td><td><a href=\"/config\" style=\"color: rbg(200,150,0)\"><font color=\"C89600\">Configuration</font></a></td></tr> \
 <tr><td><a href=\"/getdevices\">List of EQ3 devices seen</a></td><td> | </td><td><a href=\"/upload\" style=\"color: rbg(200,150,0)\"><font color=\"C89600\">Update software</font></a></td></tr> \
 <tr><td><a href=\"/scan\">Rescan for EQ3 devices</a></td><td> | </td><td><a href=\"/restartnow\" style=\"color: rbg(255,0,0)\"><font color=\"FF0000\">Reboot ESP</font></a></td></tr> \
