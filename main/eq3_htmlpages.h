@@ -65,10 +65,7 @@ const char selectap[] = R"EOF(
 </table>
 <div><input type="submit" value="Submit"></div>
 </form>
-<div>
-    The IP address, gateway address and netmask are optional. If not supplied
-    these values will be issued by the WiFi access point.
-</div>
+<div>The IP address, gateway address and netmask are optional. If not supplied these values will be issued by the WiFi access point.</div>
 )EOF";
 
 const char devlisthead[] = R"EOF(
