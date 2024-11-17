@@ -228,9 +228,14 @@ static int mongoose_serve_content(struct mg_connection *nc, char *content, bool 
     int contlen = 0;
     if(content != NULL)
         contlen = strlen(content);
+    // same size as htmlstr
+    char pagefooter[3100];
+    // formated pagefooter
+    strcpy(pagefooter, pagefooter_a);
+    strcat(pagefooter, pagefooter_b);
+    strcat(pagefooter, pagefooter_c);
     /* Hopefully 20 characters is enough for the version */
-    //char *htmlstr = malloc(strlen(pageheader) + strlen(pagefooter) + contlen + 1);
-    char *htmlstr = malloc(strlen(pageheader) + strlen(pagefooter1) + strlen(pagefooter2) + strlen(pagefooter3) + contlen + 1);
+    char *htmlstr = malloc(strlen(pageheader) + strlen(pagefooter) + contlen + 1);
     if(htmlstr != NULL){
         apploc += sprintf(&htmlstr[apploc], pageheader);
         if(content != NULL){
