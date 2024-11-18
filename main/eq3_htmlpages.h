@@ -26,15 +26,14 @@ const char pagefooter_a[] = R"EOF(
 
 const char pagefooter_c[] = R"EOF(by SoftyPIT</a><br/>
     <a href="https://github.com/Bartek-Be/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">fork</a></div>
-</div>
 
+</div>
 </body>
 </html>
 )EOF";
 
 const char pageemptyfooter[] = R"EOF(
 </div>
-
 </body>
 </html>
 )EOF";
