@@ -231,6 +231,7 @@ static int mongoose_serve_content(struct mg_connection *nc, char *content, bool 
     // same size as htmlstr
     char pagefooter[3100];
     // formated pagefooter
+    const char pagefooter_b[] = " "EQ3_MAJVER"."EQ3_MINVER""EQ3_EXTRAVER" ";
     strcpy(pagefooter, pagefooter_a);
     strcat(pagefooter, pagefooter_b);
     strcat(pagefooter, pagefooter_c);
