@@ -122,8 +122,8 @@ const char upload[] = R"EOF(
 <form action="otaupload" method="POST" enctype="multipart/form-data">
 <table style="margin:1em auto;">
 <tbody>
-    <tr><td><input type="file" name="fileupload" value="fileupload" id="fileupload"></td></tr>
-    <tr><td><input type="submit" value="Upload and apply"></td></tr>
+    <tr><td><input type="file" name="fileupload" value="fileupload" id="fileupload" /></td></tr>
+    <tr><td><input type="submit" value="Upload and apply" /></td></tr>
 </tbody>
 </table>
 </form>
