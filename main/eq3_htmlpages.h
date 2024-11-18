@@ -25,7 +25,8 @@ const char pagefooter_a[] = R"EOF(
     <a href="https://github.com/softypit/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">EQ3-MQTT-ESP32)EOF";
 
 const char pagefooter_c[] = R"EOF(by SoftyPIT</a><br/>
-    <a href="https://github.com/Bartek-Be/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">fork</a></div>
+    <a href="https://github.com/Bartek-Be/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">fork</a>
+</div>
 
 </div>
 </body>
