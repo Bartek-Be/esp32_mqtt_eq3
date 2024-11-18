@@ -87,7 +87,7 @@ const char nodevices[] = R"EOF(
 
 const char loglisthead[] = R"EOF(<title>EQ3 device log</title>
 <div><h1>EQ3 device log</h1></div>
-<table style="margin:1em auto;">
+<table style="margin:1em auto; text-align:left;">
 <tbody> 
     )EOF";
 
