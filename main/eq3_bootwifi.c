@@ -296,18 +296,18 @@ static int mongoose_serve_device_list(struct mg_connection *nc){
     int numdevices;
     enum eq3_scanstate listres = eq3gap_get_device_list(&devwalk, &numdevices);
     if(listres == EQ3_SCAN_COMPLETE){
-        
+
         char *devlisthtml = malloc(strlen(devlisthead) + strlen(devlistfoot) + ((strlen(devlistentry) + 22) * numdevices));
         if(devlisthtml != NULL){
             /* Copy header into buffer */
             wridx += sprintf(&devlisthtml[wridx], devlisthead);
             /* Collate device list in buffer */
             while(devwalk != NULL){
-                wridx += sprintf(&devlisthtml[wridx], devlistentry, devwalk->bda[0], devwalk->bda[1], devwalk->bda[2], 
-                     devwalk->bda[3], devwalk->bda[4], devwalk->bda[5], devwalk->rssi); 	
+                wridx += sprintf(&devlisthtml[wridx], devlistentry, devwalk->bda[0], devwalk->bda[1], devwalk->bda[2],
+                     devwalk->bda[3], devwalk->bda[4], devwalk->bda[5], devwalk->rssi);
                 devwalk = devwalk->next;
             }
-        
+
             /* Copy footer into buffer */
             wridx += sprintf(&devlisthtml[wridx], devlistfoot);
             mongoose_serve_content(nc, devlisthtml, true);
@@ -343,7 +343,7 @@ static int mongoose_serve_command_list(struct mg_connection *nc){
                 wridx += sprintf(&devlisthtml[wridx], select_device_entry, bleaddr, bleaddr);
                 devwalk = devwalk->next;
             }
-        
+
             /* Copy footer into buffer */
             wridx += sprintf(&devlisthtml[wridx], command_post_device);
             mongoose_serve_content(nc, devlisthtml, true);
@@ -361,7 +361,7 @@ static int mongoose_serve_command_list(struct mg_connection *nc){
     //nc->flags |= MG_F_SEND_AND_CLOSE;
     return 0;
 }
-        
+
 /* Serve the logs page */
 static int mongoose_serve_log(struct mg_connection *nc){
     int numlogs = eq3_num_logs();
@@ -419,7 +419,7 @@ static int mongoose_serve_status(struct mg_connection *nc){
         mongoose_serve_content(nc, htmlstr, true);
         free(htmlstr);
         //nc->flags |= MG_F_SEND_AND_CLOSE;
-    }            
+    }
     return 0;
 }
 
@@ -489,7 +489,7 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
             if (strcmp(uri, "/set") ==0 ) {
                 char *devstr, *cmdstr, *valstr;
                 char request[50];
-                
+
                 devstr = getqueryarg(query, "device");
                 cmdstr = getqueryarg(query, "command");
                 valstr = getqueryarg(query, "value");
@@ -539,7 +539,7 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
                     ESP_LOGI(tag, "Set MQTT password to %s", newpass);
                 }
                 mg_http_get_var(&message->body, "mqttid", connectionInfo.mqttid, ID_SIZE);
-                
+
                 connectionInfo.ntpenabled = 0;
                 char enabled[10];
                 mg_http_get_var(&message->body, "ntpenabled", enabled, 10);
@@ -571,7 +571,7 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
                 ESP_LOGI(tag, "ssid: %s, password: %s", connectionInfo.ssid, connectionInfo.password);
 
                 saveConnectionInfo(&connectionInfo);
-                
+
                 if(sta_configured == false){
                     ESP_LOGI(tag, "Config applied while in AP mode - switch to STA");
                     mg_http_reply(nc, 200, 0, "Content-Type: text/plain\n", "");
@@ -597,7 +597,7 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
                     mongoose_serve_content(nc, (char *)commanderror, true);
                 }
                 //nc->flags |= MG_F_SEND_AND_CLOSE;
-			}else if(strcmp(uri, "/getdevices") == 0){
+            }else if(strcmp(uri, "/getdevices") == 0){
                 mongoose_serve_device_list(nc);
             }else if(strcmp(uri, "/status") == 0){
                 mongoose_serve_status(nc);
@@ -614,11 +614,11 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
                 //nc->flags |= MG_F_SEND_AND_CLOSE;
             }else if(strcmp(uri, "/otastatus") == 0){
                 mongoose_serve_ota_result(nc);
-            }else if(strcmp(uri, "/command") == 0){    
+            }else if(strcmp(uri, "/command") == 0){
                 mongoose_serve_command_list(nc);
             }else if(strcmp(uri, "/viewlog") == 0){
                 mongoose_serve_log(nc);
-            }else if(strcmp(uri, "/restartnow") == 0){  
+            }else if(strcmp(uri, "/restartnow") == 0){
                 mongoose_serve_content(nc, (char *)rebooting, false);
                 //nc->flags |= MG_F_SEND_AND_CLOSE;
                 schedule_reboot();
@@ -633,8 +633,8 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
             free(uri);
             if(query != NULL)
                 free(query);
-            break; 
-            
+            break;
+
         } // MG_EV_HTTP_REQUEST
 
 // New mongoose have removed the MG_EV_HTTP_CHUNK event
@@ -649,7 +649,7 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
                 int writelen = message->chunk.len;
                 uint8_t *start = (uint8_t *)message->chunk.ptr;
                 /* MG_EV_HTTP_CHUNK received for each chunk */
-                
+
                 if(update_partition == NULL){
                     remlen = message->body.len - writelen;
                     /* On first chunk */
@@ -782,7 +782,7 @@ static int setStatusLed(int on) {
     gpio_set_direction(CONFIG_STATUS_LED_GPIO, GPIO_MODE_OUTPUT);
     return gpio_set_level(CONFIG_STATUS_LED_GPIO, !on);
 #else
-    return 1; 
+    return 1;
 #endif
 }
 
@@ -851,7 +851,7 @@ static void event_handler(void *arg, esp_event_base_t event_base, int32_t event_
             const esp_netif_ip_info_t *ip_info = &event->ip_info;
             ESP_LOGI(tag, "********************************************");
             ESP_LOGI(tag, "* We are now connected and ready to do work!");
-            ESP_LOGI(tag, "* - Our IP address is: " IPSTR, IP2STR(&ip_info->ip));
+            ESP_LOGI(tag, "* Our IP address is: " IPSTR, IP2STR(&ip_info->ip));
             ESP_LOGI(tag, "********************************************");
             connattempts = 0;
 
@@ -968,7 +968,7 @@ static void saveConnectionInfo(connection_info_t *pConnectionInfo) {
 static void becomeStation(connection_info_t *pConnectionInfo) {
     ESP_LOGI(tag, "- Connecting to access point \"%s\" ...", pConnectionInfo->ssid);
     assert(strlen(pConnectionInfo->ssid) > 0);
-    
+
     /* If this is a retry don't re-initialise sta mode */
     if(sta_configured == false){
         esp_netif_dns_info_t dnsaddr;

@@ -4,7 +4,7 @@ const char pageheader[] = R"EOF(
 <html>
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
-    <title>EQ3 status</title>
+    <title>EQ-3 status</title>
 </head>
 
 <body>
@@ -15,14 +15,14 @@ const char pageheader[] = R"EOF(
 const char pagefooter_a[] = R"EOF(
 <table style="margin:1em auto;">
 <tbody>
-    <tr><td><a href="/command">Control EQ3 device</a></td><td> | </td><td><a href="/status" style="color: #C89600;">Status</a></td></tr>
-    <tr><td><a href="/viewlog">View EQ3 status log</a></td><td> | </td><td><a href="/config" style="color: #C89600;">Configuration</a></td></tr>
-    <tr><td><a href="/getdevices">List of EQ3 devices seen</a></td><td> | </td><td><a href="/upload" style="color: #C89600;">Update software</a></td></tr>
-    <tr><td><a href="/scan">Rescan for EQ3 devices</a></td><td> | </td><td><a href="/restartnow" style="color: #FF0000;">Reboot ESP</a></td></tr>
+    <tr><td><a href="/command">Control EQ-3 device</a></td><td> | </td><td><a href="/status" style="color: #C89600;">Status</a></td></tr>
+    <tr><td><a href="/viewlog">View EQ-3 status log</a></td><td> | </td><td><a href="/config" style="color: #C89600;">Configuration</a></td></tr>
+    <tr><td><a href="/getdevices">List of EQ-3 devices seen</a></td><td> | </td><td><a href="/upload" style="color: #C89600;">Update software</a></td></tr>
+    <tr><td><a href="/scan">Rescan for EQ-3 devices</a></td><td> | </td><td><a href="/restartnow" style="color: #FF0000;">Reboot ESP</a></td></tr>
 </tbody>
 </table>
 <div style="font-size:12px;"><hr/>
-    <a href="https://github.com/softypit/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">EQ3-MQTT-ESP32)EOF";
+    <a href="https://github.com/softypit/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">EQ-3-MQTT-ESP32)EOF";
 
 const char pagefooter_c[] = R"EOF(by SoftyPIT</a><br/>
     <a href="https://github.com/Bartek-Be/esp32_mqtt_eq3" target="_blank" style="color: #AAA;">fork</a>
@@ -61,16 +61,16 @@ const char selectap[] = R"EOF(
     <tr><td>DNS server 2:</td><td><input type="text" autocorrect="off" autocapitalize="none" name="dns2ip" value="%s" /></td></tr>
 </tbody>
 </table>
-<div><input type="submit" value="Submit"></div>
+<div><input type="submit" value="Submit" /></div>
 </form>
 <div>The IP address, gateway address and netmask are optional. If not supplied these values will be issued by the WiFi access point.</div>
 )EOF";
 
 const char devlisthead[] = R"EOF(
-<title>EQ3 devices</title>
-<div><h1>EQ3 devices found</h1></div>
+<title>EQ-3 devices</title>
+<div><h1>EQ-3 devices found</h1></div>
 <table style="margin:1em auto;">
-<tbody> 
+<tbody>
     )EOF";
 
 const char devlistentry[] = "<tr><td>Device:</td><td>%02X:%02X:%02X:%02X:%02X:%02X</td><td>rssi</td><td>%d</td></tr>";
@@ -85,10 +85,10 @@ const char nodevices[] = R"EOF(
 <div><h1>No devices found</h1></div>
 )EOF";
 
-const char loglisthead[] = R"EOF(<title>EQ3 device log</title>
-<div><h1>EQ3 device log</h1></div>
+const char loglisthead[] = R"EOF(<title>EQ-3 device log</title>
+<div><h1>EQ-3 device log</h1></div>
 <table style="margin:1em auto; text-align:left;">
-<tbody> 
+<tbody>
     )EOF";
 
 //const char loglistentry[] = "<tr><td>%s</td></tr>";
@@ -99,8 +99,8 @@ const char loglistfoot[] = R"EOF(
 )EOF";
 
 const char connectedstatus[] = R"EOF(
-<title>EQ3 status</title> 
-<div><h1>EQ3 relay status</h1></div>
+<title>EQ-3 status</title>
+<div><h1>EQ-3 relay status</h1></div>
 <table style="margin:1em auto;">
 <tbody>
     <tr><td>MQTT URL:</td><td>%s</td></tr>
@@ -112,12 +112,12 @@ const char connectedstatus[] = R"EOF(
 )EOF";
 
 const char apstatus[] = R"EOF(
-<title>Please configure me</title> 
+<title>Please configure me</title>
 <div><h1>Please configure me</h1></div>
 )EOF";
 
 const char upload[] = R"EOF(
-<title>upload firmware</title> 
+<title>upload firmware</title>
 <div><h1>Upload new software</h1></div>
 <form action="otaupload" method="POST" enctype="multipart/form-data">
 <table style="margin:1em auto;">
@@ -130,7 +130,7 @@ const char upload[] = R"EOF(
 )EOF";
 
 const char uploadsuccess[] = R"EOF(
-<title>uploaded firmware</title> 
+<title>uploaded firmware</title>
 <div>
     <h1>Upload status</h1>
     Firmware upload success
@@ -140,7 +140,7 @@ const char uploadsuccess[] = R"EOF(
 )EOF";
 
 const char uploadfailed[] = R"EOF(
-<title>uploaded firmware</title> 
+<title>uploaded firmware</title>
 <div>
     <h1>Upload status</h1>
     Firmware upload failed
@@ -148,60 +148,60 @@ const char uploadfailed[] = R"EOF(
 )EOF";
 
 const char uploadcomplete[] = R"EOF(
-<meta http-equiv="refresh" content="1;URL="/otastatus"">
+<meta http-equiv="refresh" content="1;URL='/otastatus'" />
 <title>upload complete</title>
 <div><h1>Upload complete</h1></div>
 )EOF";
 
 const char scanning[] = R"EOF(
-<meta http-equiv="refresh" content="5;URL="/getdevices"">
+<meta http-equiv="refresh" content="5;URL='/getdevices'" />
 <div><h1>Scanning...</h1></div>
 )EOF";
 
 const char rebooting[] = R"EOF(
-<meta http-equiv="refresh" content="40;URL="/"">
+<meta http-equiv="refresh" content="40;URL='/'" />
 <div><h1>Rebooting...</h1></div>
 )EOF";
 
 const char command_device_head[] = R"EOF(
-<title>EQ3 device log</title> 
+<title>EQ-3 device log</title>
 <div><h1>Control EQ-3</h1></div>
-<form action="sendCommand" method="post"> 
+<form action="sendCommand" method="post">
 <table style="margin:1em auto;">
 <tbody>
     <tr><td><select name="device">
-        )EOF";
+            )EOF";
 
 const char select_device_entry[] = "<option value=\"%s\">%s</option>";
 
 const char command_post_device[] = R"EOF(
-    </select></td>
-    <td><select name="command">
-        <option value="unlock">unlock</option>
-        <option value="lock">lock</option>
-        <option value="boost">boost</option>
-        <option value="unboost">unboost</option>
-        <option value="auto">auto</option>
-        <option value="manual">manual</option>
-        <option value="settemp">settemp</option>
-        <option value="off">closed (off)</option>
-        <option value="on">open (on)</option>
-        <option value="offset">offsettemp</option>
-        <option value="settime">settime</option>
-    </select></td>
-    <td><input type="text" name="value"></td></tr>
-    <tr><td><input type="submit" value="Submit"></td></tr>
+        </select></td>
+        <td><select name="command">
+            <option value="unlock">unlock</option>
+            <option value="lock">lock</option>
+            <option value="boost">boost</option>
+            <option value="unboost">unboost</option>
+            <option value="auto">auto</option>
+            <option value="manual">manual</option>
+            <option value="settemp">settemp</option>
+            <option value="off">closed (off)</option>
+            <option value="on">open (on)</option>
+            <option value="offset">offsettemp</option>
+            <option value="settime">settime</option>
+        </select></td>
+        <td><input type="text" name="value" /></td></tr>
+    <tr><td><input type="submit" value="Submit" /></td></tr>
 </tbody>
 </table>
 </form>
 )EOF";
 
 const char commandsubmitted[] = R"EOF(
-<title>Command submitted</title> 
+<title>Command submitted</title>
 <div><h1>Command submitted</h1></div>
 )EOF";
 
 const char commanderror[] = R"EOF(
-<title>Invalid command</title> 
+<title>Invalid command</title>
 <div><h1>Invalid command</h1></div>
 )EOF";
