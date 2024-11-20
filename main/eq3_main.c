@@ -1114,6 +1114,7 @@ static int run_command(void){
 /* Callback from config - copy url, username and password for mqtt broker */
 static char *usr = NULL, *pass = NULL, *url = NULL, *id = NULL;
 void confparms(char *mqtturl, char *mqttuser, char *mqttpass, char *mqttid){
+    int count = 0; // count of ":"
     if(usr != NULL){
         free(usr);
         usr = NULL;
@@ -1127,12 +1128,37 @@ void confparms(char *mqtturl, char *mqttuser, char *mqttpass, char *mqttid){
         url = NULL;
     }
     if(mqtturl != NULL && mqtturl[0] != 0){
+        // TODO: sprawdzania i dodawanie def portu dla mqtt
+        if(strstr(mqtturl, ":") != NULL){
+            for (int i = 0; i < strlen(mqtturl); i++) {
+                //":" char
+                if(mqtturl[i] == 72){
+                    count++;
+                }
+            }
+            if(count >= 2){
+                url = strdup(mqtturl);
+            }else{
+                if(strstr(mqtturl, "//") != NULL){
+                    url = malloc(strlen(mqtturl) + 6);
+                    sprintf(url, "%s:1883", mqtturl);
+                }else{
+                    url = malloc(strlen(mqtturl) + 8);
+                    sprintf(url, "mqtt://%s", mqtturl);
+                }
+            }
+        }else{
+            url = malloc(strlen(mqtturl) + 13);
+            sprintf(url, "mqtt://%s:1883", mqtturl);
+        }
+       /*
         if(strstr(mqtturl, "//") != NULL){
             url = strdup(mqtturl);
         }else{
             url = malloc(strlen(mqtturl) + 8);
             sprintf(url, "mqtt://%s", mqtturl);
         }
+        */
         ESP_LOGI(GATTC_TAG, "MQTT config url is %s", url);
     }
     if(mqttuser != NULL && mqttuser[0] != 0){
