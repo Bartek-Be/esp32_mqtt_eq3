@@ -1114,7 +1114,6 @@ static int run_command(void){
 /* Callback from config - copy url, username and password for mqtt broker */
 static char *usr = NULL, *pass = NULL, *url = NULL, *id = NULL;
 void confparms(char *mqtturl, char *mqttuser, char *mqttpass, char *mqttid){
-    int count = 0; // count of ":"
     if(usr != NULL){
         free(usr);
         usr = NULL;
