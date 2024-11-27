@@ -530,8 +530,8 @@ static void mongoose_event_handler(struct mg_connection *nc, int ev, void *evDat
                     strcpy(connectionInfo.password, newpass);
                     ESP_LOGI(tag, "Set STA password to %s", newpass);
                 }
-                mg_http_get_var(&message->body, "mqtturl", connectionInfo.mqtturl, SSID_SIZE);
-                mg_http_get_var(&message->body, "mqttuser", connectionInfo.mqttuser, SSID_SIZE);
+                mg_http_get_var(&message->body, "mqtturl", connectionInfo.mqtturl, MAX_URL_SIZE);
+                mg_http_get_var(&message->body, "mqttuser", connectionInfo.mqttuser, USERNAME_SIZE);
                 newpass[0] = 0;
                 mg_http_get_var(&message->body, "mqttpass", newpass, PASSWORD_SIZE);
                 if(strlen(newpass) > 0){
