@@ -1,4 +1,3 @@
-
 const char pageheader[] = R"EOF(
 <!DOCTYPE html>
 <html>
@@ -178,17 +177,17 @@ const char select_device_entry[] = "<option value=\"%s\">%s</option>";
 const char command_post_device[] = R"EOF(
         </select></td>
         <td><select name="command">
-            <option value="unlock">unlock</option>
-            <option value="lock">lock</option>
-            <option value="boost">boost</option>
-            <option value="unboost">unboost</option>
             <option value="auto">auto</option>
+            <option value="boost">boost</option>
+            <option value="lock">lock</option>
             <option value="manual">manual</option>
-            <option value="settemp">settemp</option>
-            <option value="off">closed (off)</option>
-            <option value="on">open (on)</option>
-            <option value="offset">offsettemp</option>
-            <option value="settime">settime</option>
+            <option value="unlock">un-lock</option>
+            <option value="offset">offset-temp</option>
+            <option value="off">window closed (off)</option>
+            <option value="on">window open (on)</option>
+            <option value="settemp">set-temp</option>
+            <option value="settime">set-time</option>
+            <option value="unboost">un-boost</option>
         </select></td>
         <td><input type="text" name="value" /></td></tr>
     <tr><td><input type="submit" value="Submit" /></td></tr>
