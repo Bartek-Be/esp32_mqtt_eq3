@@ -177,17 +177,17 @@ const char select_device_entry[] = "<option value=\"%s\">%s</option>";
 const char command_post_device[] = R"EOF(
         </select></td>
         <td><select name="command">
-            <option value="auto">auto</option>
-            <option value="boost">boost</option>
-            <option value="lock">lock</option>
-            <option value="manual">manual</option>
-            <option value="offset">offset-temp</option>
-            <option value="settemp">set-temp</option>
-            <option value="settime">set-time</option>
-            <option value="unboost">un-boost</option>
-            <option value="unlock">un-lock</option>
-            <option value="off">window closed (off)</option>
-            <option value="on">window open (on)</option>
+            <option value="auto">Auto</option>
+            <option value="boost">Boost</option>
+            <option value="lock">Lock</option>
+            <option value="manual">Manual</option>
+            <option value="offset">offsetTemp</option>
+            <option value="settemp">setTemp</option>
+            <option value="settime">setTime</option>
+            <option value="unboost">unBoost</option>
+            <option value="unlock">unLock</option>
+            <option value="off">Window Closed (off)</option>
+            <option value="on">Window Open (on)</option>
         </select></td>
         <td><input type="text" name="value" /></td></tr>
     <tr><td><input type="submit" value="Submit" /></td></tr>
