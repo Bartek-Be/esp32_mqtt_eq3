@@ -182,12 +182,12 @@ const char command_post_device[] = R"EOF(
             <option value="settemp">Set Temp</option>
             <option value="boost">Boost (on)</option>
             <option value="unboost">unBoost (off)</option>
-            <option value="off">Window Closed (off)</option>
-            <option value="on">Window Open (on)</option>
+            <option value="on">On (set temp to 30.0)</option>
+            <option value="off">Off (set temp to 4.5)</option>
             <option value="lock">Lock</option>
             <option value="unlock">unLock</option>
-            <option value="offset">offsetTemp</option>
-            <option value="settime">setTime</option>
+            <option value="offset">offset Temp</option>
+            <option value="settime">Set Time</option>
         </select></td>
         <td><input type="text" name="value" /></td></tr>
     <tr><td><input type="submit" value="Submit" /></td></tr>
