@@ -268,12 +268,13 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         gl_profile_tab[PROFILE_A_APP_ID].char_handle = 0;
         gl_profile_tab[PROFILE_A_APP_ID].resp_char_handle = 0;
         break;
+
     case ESP_GATTC_UNREG_EVT:
         /* Unregistered */
         ESP_LOGI(GATTC_TAG, "UNREG_EVT");
         registered = false;
         esp_err_t ret = esp_ble_gattc_app_register(PROFILE_A_APP_ID);
-	    if(ret){
+        if(ret){
             ESP_LOGE(GATTC_TAG, "%s gattc app register failed, error code = %x\n", __func__, ret);
         }
         break;
@@ -293,6 +294,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             ESP_LOGE(GATTC_TAG, "config MTU error, error code = %x", mtu_ret);
         }
         break;
+
     case ESP_GATTC_OPEN_EVT:
         /* Profile connection opened */
         if (param->open.status != ESP_GATT_OK){
@@ -304,6 +306,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             current_action.connection_open = true;
         }
         break;
+
     case ESP_GATTC_CLOSE_EVT:
         /* Profile connection closed */
         if(param->close.status != ESP_GATT_OK){
@@ -315,6 +318,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         /* Wait before we connect to the next EQ-3 to send a queued command */
         runtimer();
         break;
+
     case ESP_GATTC_CFG_MTU_EVT:
         /* MTU has been set */
         if (param->cfg_mtu.status != ESP_GATT_OK){
@@ -325,9 +329,9 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_CFG_MTU_EVT, Status %d, MTU %d, conn_id %d", param->cfg_mtu.status, param->cfg_mtu.mtu, param->cfg_mtu.conn_id);
         /* Search for the EQ-3 service */
         esp_ble_gattc_search_service(gattc_if, param->cfg_mtu.conn_id, NULL);
-
         break;
-    case ESP_GATTC_SEARCH_RES_EVT: {
+
+    case ESP_GATTC_SEARCH_RES_EVT:
         /* Search result is in */
         esp_gatt_srvc_id_t *srvc_id =(esp_gatt_srvc_id_t *)&p_data->search_res.srvc_id;
         conn_id = p_data->search_res.conn_id;
@@ -348,7 +352,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
           }
         }
         break;
-    }
+
     case ESP_GATTC_SEARCH_CMPL_EVT:
         /* Search is complete */
         if (p_data->search_cmpl.status != ESP_GATT_OK){
@@ -462,8 +466,8 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             break;
         }
         break;
-	
-    case ESP_GATTC_REG_FOR_NOTIFY_EVT: {
+
+    case ESP_GATTC_REG_FOR_NOTIFY_EVT:
         if (p_data->reg_for_notify.status != ESP_GATT_OK){
             ESP_LOGE(GATTC_TAG, "REG FOR NOTIFY failed: error status = %d", p_data->reg_for_notify.status);
             /* Disconnect */
@@ -475,7 +479,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                                   current_action.cmd_len, current_action.cmd_val, ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
         }
         break;
-    }
+
     case ESP_GATTC_NOTIFY_EVT:
         /* EQ-3 has sent a notification with its current status */
         /* Decode this and create a json message to send back to the controlling broker to keep state-machine up-to-date and acknowledge settings */
@@ -594,9 +598,9 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             setnextcmd(EQ3_DISCONNECT, 2);
             runtimer();
         }
-
     break;
-    case ESP_GATTC_UNREG_FOR_NOTIFY_EVT: {
+
+    case ESP_GATTC_UNREG_FOR_NOTIFY_EVT:
         /* We should now be unregistered for notification */
         if (p_data->unreg_for_notify.status != ESP_GATT_OK){
             ESP_LOGE(GATTC_TAG, "UNREG FOR NOTIFY failed: error status = %d", p_data->unreg_for_notify.status);
@@ -609,9 +613,8 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         /* 2 second delay until disconnect to allow any background GATTC stuff to complete */
         setnextcmd(EQ3_DISCONNECT, 2);
         runtimer();
-
         break;
-    }  
+
     case ESP_GATTC_WRITE_CHAR_EVT:
         /* Characteristic write complete */
         if (p_data->write.status != ESP_GATT_OK){
@@ -622,6 +625,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         }
         ESP_LOGI(GATTC_TAG, "write char success ");
         break;
+
     case ESP_GATTC_DISCONNECT_EVT:
         /* Disconnected */
         current_action.get_server = false;
@@ -631,8 +635,8 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
 
         if(p_data->disconnect.reason != ESP_GATT_CONN_TERMINATE_LOCAL_HOST)
             gattc_command_error(current_action.cmd_bleda, "Device unavailable");
-
         break;
+
     default:
         ESP_LOGI(GATTC_TAG, "Unhandled_EVT %d", event);
         break;
