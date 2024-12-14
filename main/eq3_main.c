@@ -327,7 +327,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         esp_ble_gattc_search_service(gattc_if, param->cfg_mtu.conn_id, NULL);
 
         break;
-    case ESP_GATTC_SEARCH_RES_EVT: {
+    case ESP_GATTC_SEARCH_RES_EVT:
         /* Search result is in */
         esp_gatt_srvc_id_t *srvc_id =(esp_gatt_srvc_id_t *)&p_data->search_res.srvc_id;
         conn_id = p_data->search_res.conn_id;
@@ -348,7 +348,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
           }
         }
         break;
-    }
+    
     case ESP_GATTC_SEARCH_CMPL_EVT:
         /* Search is complete */
         if (p_data->search_cmpl.status != ESP_GATT_OK){
@@ -463,7 +463,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         }
         break;
 	
-    case ESP_GATTC_REG_FOR_NOTIFY_EVT: {
+    case ESP_GATTC_REG_FOR_NOTIFY_EVT: 
         if (p_data->reg_for_notify.status != ESP_GATT_OK){
             ESP_LOGE(GATTC_TAG, "REG FOR NOTIFY failed: error status = %d", p_data->reg_for_notify.status);
             /* Disconnect */
@@ -475,7 +475,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                                   current_action.cmd_len, current_action.cmd_val, ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
         }
         break;
-    }
+    
     case ESP_GATTC_NOTIFY_EVT:
         /* EQ-3 has sent a notification with its current status */
         /* Decode this and create a json message to send back to the controlling broker to keep state-machine up-to-date and acknowledge settings */
@@ -596,7 +596,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         }
 
     break;
-    case ESP_GATTC_UNREG_FOR_NOTIFY_EVT: {
+    case ESP_GATTC_UNREG_FOR_NOTIFY_EVT: 
         /* We should now be unregistered for notification */
         if (p_data->unreg_for_notify.status != ESP_GATT_OK){
             ESP_LOGE(GATTC_TAG, "UNREG FOR NOTIFY failed: error status = %d", p_data->unreg_for_notify.status);
@@ -611,7 +611,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         runtimer();
 
         break;
-    }  
+
     case ESP_GATTC_WRITE_CHAR_EVT:
         /* Characteristic write complete */
         if (p_data->write.status != ESP_GATT_OK){
@@ -844,6 +844,7 @@ int handle_request(char *cmdstr){
         start = true;
         command = EQ3_UNLOCK;
     }
+}
     if(start == false && strncmp((const char *)cmdptr, "offset", 6) == 0){
         char *endmsg;
         float offset = strtof(cmdptr + 7, &endmsg);
