@@ -246,7 +246,7 @@ static void gattc_command_error(esp_bd_addr_t bleda, char *error){
     runtimer();
 }
 
-/* Callback function to handle GATT-Client events */ 
+/* Callback function to handle GATT-Client events */
 /* While we've discovered the EQ-3 devices with the GAP handler we need to check the service we want is available when we connect
  * so we connect to the device and search its services before we try to set our chosen characteristic */
 
@@ -278,7 +278,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             ESP_LOGE(GATTC_TAG, "%s gattc app register failed, error code = %x\n", __func__, ret);
         }
         break;
-        
+
     /* GATT Client connection to server */
     case ESP_GATTC_CONNECT_EVT:
         /* GATT Client connected to server(EQ-3) */
@@ -298,7 +298,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
     case ESP_GATTC_OPEN_EVT:
         /* Profile connection opened */
         if (param->open.status != ESP_GATT_OK){
-            ESP_LOGE(GATTC_TAG, "open failed, status %d", p_data->open.status); 
+            ESP_LOGE(GATTC_TAG, "open failed, status %d", p_data->open.status);
             gattc_command_error(current_action.cmd_bleda, "TRV not available");
             break;
         }else{
@@ -330,10 +330,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         /* Search for the EQ-3 service */
         esp_ble_gattc_search_service(gattc_if, param->cfg_mtu.conn_id, NULL);
         break;
-<<<<<<< HEAD
-=======
 
->>>>>>> checkstatus
     case ESP_GATTC_SEARCH_RES_EVT:
         /* Search result is in */
         esp_gatt_srvc_id_t *srvc_id =(esp_gatt_srvc_id_t *)&p_data->search_res.srvc_id;
@@ -355,11 +352,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
           }
         }
         break;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> checkstatus
     case ESP_GATTC_SEARCH_CMPL_EVT:
         /* Search is complete */
         if (p_data->search_cmpl.status != ESP_GATT_OK){
@@ -374,11 +367,11 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                                                                      gl_profile_tab[PROFILE_A_APP_ID].service_end_handle, INVALID_HANDLE, &count);
             if (status != ESP_GATT_OK){
                 ESP_LOGE(GATTC_TAG, "esp_ble_gattc_get_attr_count error");
-            }      
+            }
             if (count > 0){
                 uint16_t count2 = 1;
                 ESP_LOGI(GATTC_TAG, "%d attributes reported", count);
-                    
+
                 /* Get the response characteristic handle */
                 status = esp_ble_gattc_get_char_by_uuid( gattc_if, p_data->search_cmpl.conn_id, gl_profile_tab[PROFILE_A_APP_ID].service_start_handle,
                                                          gl_profile_tab[PROFILE_A_APP_ID].service_end_handle, eq3_resp_filter_char_uuid, char_elem_result, &count2);
@@ -392,14 +385,14 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                     for(charwalk = 0; charwalk < count; charwalk++){
                         if (char_elem_result[charwalk].uuid.len == ESP_UUID_LEN_128){
                             int checkcount;
-                                
+
                                 /* Check if the service identifier is the one we're interested in */
                                 char printstr[ESP_UUID_LEN_128 * 2 + 1];
                                 int bytecount, writecount = 0;
                                 for(bytecount=ESP_UUID_LEN_128 - 1; bytecount >= 0; bytecount--, writecount += 2)
                                     sprintf(&printstr[writecount], "%02x", char_elem_result[charwalk].uuid.uuid.uuid128[bytecount] & 0xff);
                                 ESP_LOGI(GATTC_TAG, "Found uuid %d UUID128: %s", charwalk, printstr);
-                                
+
                             /* Is this the response characteristic */
                             for(checkcount=0; checkcount < ESP_UUID_LEN_128; checkcount++){
                                 if(char_elem_result[charwalk].uuid.uuid.uuid128[checkcount] != eq3_resp_char_id.uuid.uuid.uuid128[checkcount]){
@@ -433,7 +426,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                 if (count2 > 0){
                     uint16_t charwalk;
                     ESP_LOGI(GATTC_TAG, "Found %d filtered attributes", count2);
-                    for(charwalk = 0; charwalk < count; charwalk++){                            
+                    for(charwalk = 0; charwalk < count; charwalk++){
                         if (char_elem_result[charwalk].uuid.len == ESP_UUID_LEN_128){
                             int checkcount;
                             /* Check if the service identifier is the one we're interested in */
@@ -442,7 +435,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                             for(bytecount=ESP_UUID_LEN_128 - 1; bytecount >= 0; bytecount--, writecount += 2)
                                 sprintf(&printstr[writecount], "%02x", char_elem_result[charwalk].uuid.uuid.uuid128[bytecount] & 0xff);
                             ESP_LOGI(GATTC_TAG, "Found uuid %d UUID128: %s", charwalk, printstr);
-                            
+
                             /* Is this the command characteristic */
                             for(checkcount=0; checkcount < ESP_UUID_LEN_128; checkcount++){
                                 if(char_elem_result[charwalk].uuid.uuid.uuid128[checkcount] != eq3_char_id.uuid.uuid.uuid128[checkcount]){
@@ -460,7 +453,6 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                 }else{
                     ESP_LOGE(GATTC_TAG, "No command attribute found!");
                 }
-                    
             }else{
                 ESP_LOGE(GATTC_TAG, "EQ-3 characteristics not found");
                 gattc_command_error(gl_profile_tab[PROFILE_A_APP_ID].remote_bda, "Not an EQ-3");
@@ -473,13 +465,8 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             break;
         }
         break;
-<<<<<<< HEAD
-	
-    case ESP_GATTC_REG_FOR_NOTIFY_EVT: 
-=======
 
     case ESP_GATTC_REG_FOR_NOTIFY_EVT:
->>>>>>> checkstatus
         if (p_data->reg_for_notify.status != ESP_GATT_OK){
             ESP_LOGE(GATTC_TAG, "REG FOR NOTIFY failed: error status = %d", p_data->reg_for_notify.status);
             /* Disconnect */
@@ -491,11 +478,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                                   current_action.cmd_len, current_action.cmd_val, ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
         }
         break;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> checkstatus
     case ESP_GATTC_NOTIFY_EVT:
         /* EQ-3 has sent a notification with its current status */
         /* Decode this and create a json message to send back to the controlling broker to keep state-machine up-to-date and acknowledge settings */
@@ -615,12 +598,8 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             runtimer();
         }
     break;
-<<<<<<< HEAD
-    case ESP_GATTC_UNREG_FOR_NOTIFY_EVT: 
-=======
 
     case ESP_GATTC_UNREG_FOR_NOTIFY_EVT:
->>>>>>> checkstatus
         /* We should now be unregistered for notification */
         if (p_data->unreg_for_notify.status != ESP_GATT_OK){
             ESP_LOGE(GATTC_TAG, "UNREG FOR NOTIFY failed: error status = %d", p_data->unreg_for_notify.status);
@@ -688,7 +667,6 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp
     } while (0);
 }
 
-
 #define BUF_SIZE (1024)
 
 #define MAX_CMD_BYTES 6
@@ -746,7 +724,7 @@ static void uart_task()
     //Install UART driver (we don't need an event queue here)
     //In this example we don't even use a buffer for sending data.
     uart_driver_install(uart_num, BUF_SIZE * 2, 0, 0, NULL, 0);
-    
+
     uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
     while(1) {
         //Read data from UART
@@ -762,7 +740,7 @@ static void uart_task()
                             newMsg[cmdidx] = 0;
                             ESP_LOGI(GATTC_TAG, "Send");
                             xQueueSend( msgQueue, (void *)&newMsg, ( TickType_t ) 0 );
-    
+
                             /* TODO - check if the above failed */
 
                         }
@@ -770,16 +748,16 @@ static void uart_task()
                     cmdidx = 0;
                     cpylen++;
                 }else{
-                    cmd_buf[cmdidx++] = data[cpylen++];  
+                    cmd_buf[cmdidx++] = data[cpylen++];
                 }
             }
         }
         //Write data back to UART
         uart_write_bytes(uart_num, (const char*) data, len);
     }
-} 
+}
 
-/* Schedule a reboot after commands have completed or very shortly */ 
+/* Schedule a reboot after commands have completed or very shortly */
 void schedule_reboot(void){
     reboot_requested = true;
     if(current_action.ble_operation_in_progress == false)
@@ -790,12 +768,12 @@ void schedule_reboot(void){
 int handle_request(char *cmdstr){
     char *cmdptr = cmdstr;
     struct eq3cmd *newcmd;
-    eq3_bt_cmd command; 
-    unsigned char cmdparms[MAX_CMD_BYTES];  
+    eq3_bt_cmd command;
+    unsigned char cmdparms[MAX_CMD_BYTES];
     bool start = false;
 
     ESP_LOGI (GATTC_TAG, "Handle command %s", cmdptr);
-    
+
     // Skip the bleaddr
     while(*cmdptr != 0 && !isxdigit((int)*cmdptr))
         cmdptr++;
@@ -803,7 +781,7 @@ int handle_request(char *cmdstr){
         cmdptr++;
     // Skip any spaces
     while(*cmdptr == ' ')
-        cmdptr++;    
+        cmdptr++;
     if(start == false && strncmp((const char *)cmdptr, "settime", 7) == 0){
         start = true;
 
@@ -868,7 +846,6 @@ int handle_request(char *cmdstr){
         start = true;
         command = EQ3_UNLOCK;
     }
-}
     if(start == false && strncmp((const char *)cmdptr, "offset", 6) == 0){
         char *endmsg;
         float offset = strtof(cmdptr + 7, &endmsg);
@@ -927,7 +904,7 @@ int handle_request(char *cmdstr){
         command = EQ3_SETTEMP;
         cmdparms[0] = 0x3c; /* (30 << 1) */
     }
-    
+
     if(start == true){
         int parm;
 
@@ -943,7 +920,7 @@ int handle_request(char *cmdstr){
 
         while(*cmdstr != 0 && !isxdigit((int)*cmdstr))
             cmdstr++;
-    
+
         int adidx = ESP_BD_ADDR_LEN;
         while(adidx > 0){
             newcmd->bleda[ESP_BD_ADDR_LEN - adidx] = strtol(cmdstr, &cmdstr, 16);
@@ -951,12 +928,12 @@ int handle_request(char *cmdstr){
                 cmdstr++;
             adidx--;
         }
-    
+
         ESP_LOGI(GATTC_TAG, "Requested address:");
         esp_log_buffer_hex(GATTC_TAG, newcmd->bleda, sizeof(esp_bd_addr_t));
 
         newcmd->next = NULL;
-    
+
         enqueue_command(newcmd);
 
         if(current_action.ble_operation_in_progress == false){
@@ -1079,10 +1056,10 @@ static int command_complete(bool success){
         rc = EQ3_CMD_DONE;
     }else{
         /* Command failed - retry if there are any retries left */
-        
-        /* Normal operation - retry the same command until all attempts are exhausted 
+
+        /* Normal operation - retry the same command until all attempts are exhausted
          * OR
-         * define REQUEUE_RETRY to push the command to the end of the list to retry once all other currently queued commands are complete. */        
+         * define REQUEUE_RETRY to push the command to the end of the list to retry once all other currently queued commands are complete. */
         if(--cmdqueue->retries <= 0){
             deletehead = true;
             ESP_LOGE(GATTC_TAG, "Command failed - retries exhausted");
@@ -1103,7 +1080,7 @@ static int command_complete(bool success){
             }
 #else
             ESP_LOGE(GATTC_TAG, "Command failed - retry");
-#endif  
+#endif
         }
     }
     if(deletehead && cmdqueue != NULL){
@@ -1179,26 +1156,26 @@ void wifidone(int rc){
     static bool server_started = false;
     if(rc == 0){
         /* We are an AP */
-        ESP_LOGI(GATTC_TAG, "WiFi connection failed - entering AP mode for 5 minutes\n"); 
+        ESP_LOGI(GATTC_TAG, "WiFi connection failed - entering AP mode for 5 minutes\n");
         /* Max 5 minutes as AP then we retry station mode */
         setnextcmd(RESTART_WIFI, 300);
         runtimer();
     }else{
         /* We are station and connected */
         ESP_LOGI(GATTC_TAG, "WiFi network connected\n");
-        
+
         /* If ntp is configured start up sntp and synchronise the time */
         char *ntpserver = getntpserver(0);
         char *ntptimezone = getntptimezone();
         if(ntp_enabled() == true && ntpserver[0] != 0){
             ESP_LOGI(GATTC_TAG, "Initializing SNTP");
             sntp_setoperatingmode(SNTP_OPMODE_POLL);
-        
+
             sntp_setservername(0, ntpserver);
             ntpserver = getntpserver(1);
             sntp_setservername(1, ntpserver);
             sntp_init();
-        
+
             // wait for time to be set
             time_t now = 0;
             struct tm timeinfo = { 0 };
@@ -1211,10 +1188,10 @@ void wifidone(int rc){
                 localtime_r(&now, &timeinfo);
             }
             char strftime_buf[64];
-        
+
 //#define TZVAL "GMT0BST,M3.5.0/2,M11.1.0"
 //        setenv("TZ", TZVAL, 1);
-        
+
             setenv("TZ", (const char *)ntptimezone, 1);
             tzset();
             localtime_r(&now, &timeinfo);
@@ -1224,7 +1201,7 @@ void wifidone(int rc){
         }else{
             ESP_LOGI(GATTC_TAG, "SNTP not enabled\n");
         }
-        
+
         if(server_started == false){
             if(connect_server(url, usr, pass, id) == 0)
                 server_started = true;
@@ -1246,7 +1223,7 @@ void app_main(){
         ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK( ret );
-    
+
     esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT ();
     bt_cfg.mode = ESP_BT_MODE_BLE;
     ret = esp_bt_controller_init (&bt_cfg);
@@ -1285,8 +1262,8 @@ void app_main(){
     /* Add a boot record */
     eq3_add_log((char *)"Boot");
 
-    /* Start uart task and create msg and timer queues */ 
-    xTaskCreate(uart_task, "uart_task", 4096, NULL, 10, NULL);    
+    /* Start uart task and create msg and timer queues */
+    xTaskCreate(uart_task, "uart_task", 4096, NULL, 10, NULL);
     msgQueue = xQueueCreate( 10, sizeof( uint8_t * ) );
     timer_queue = xQueueCreate(10, sizeof(timer_event_t));
 
@@ -1298,16 +1275,16 @@ void app_main(){
         /* Queue was not created and must not be used. */
         ESP_LOGE(GATTC_TAG, "Timer queue create failed");
     }
-    
+
     /* Initialise timer0 */
     init_timer(timer_queue);
-    
+
     /* Register for gatt client usage */
     ret = esp_ble_gattc_app_register(PROFILE_A_APP_ID);
     if (ret){
         ESP_LOGE(GATTC_TAG, "%s gattc app register failed, error code = %x\n", __func__, ret);
     }
-    
+
     /* No queued commands */
     nextcmd.running = false;
 
@@ -1319,10 +1296,10 @@ void app_main(){
         //initialise_wifi();
         bootWiFi(wifidone, confparms);
     }
-    
+
     /* Kick off a GAP scan */
     start_scan();
-    
+
     /* Main polling loop */
     uint8_t *msg = NULL;
     timer_event_t evt;
@@ -1331,14 +1308,14 @@ void app_main(){
         if( xQueueReceive( msgQueue, (void *)&msg, (portTICK_PERIOD_MS * 25))){
             char *msgptr = (char *)msg;
             handle_request(msgptr);
-            free(msg);	    
+            free(msg);
         }
 
         /* Timer message handling */
         if(xQueueReceive(timer_queue, &evt, 0)){
             ESP_LOGI(GATTC_TAG, "Timer0 event (nextcmd.running=%d, nextcmd.countdown=%d, ble_operation_in_progress=%d)", nextcmd.running, nextcmd.countdown, current_action.ble_operation_in_progress);
             current_action.outstanding_timer = false;
-            
+
             if(nextcmd.running == true){
                 //ESP_LOGI(GATTC_TAG, "countdown is %d\n", nextcmd.countdown);
                 if(--nextcmd.countdown <= 0){
