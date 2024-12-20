@@ -1015,7 +1015,7 @@ static int setup_command(void){
         // TODO: Added
         case EQ3_STATUS:
             current_action.cmd_val[0] = PROP_INFO_QUERY;
-            current_action.cmd_val[1] = 1;
+            current_action.cmd_val[1] = 0x01;
             current_action.cmd_len = 2;
             break;
         case EQ3_AUTO:
@@ -1040,7 +1040,7 @@ static int setup_command(void){
             break;
         case EQ3_LOCK:
             current_action.cmd_val[0] = PROP_LOCK;
-            current_action.cmd_val[1] = 1;
+            current_action.cmd_val[1] = 0x01;
             current_action.cmd_len = 2;
             break;
         case EQ3_UNLOCK:
