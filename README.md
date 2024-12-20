@@ -223,10 +223,10 @@ web server is part of Mongoose - [https://github.com/cesanta/mongoose](https://g
 ```bash
 # Connect to a mosquitto broker:
 
-mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/devlist"  # Will display a list of discovered EQ-3 TRVs  
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radin/trv/ab:cd:ef:gh:ij:kl/status" -m "" # Will sends request of a status
-mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/status/#"  # will show a status message each time a trv is contacted
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radin/trv/ab:cd:ef:gh:ij:kl/settemp" -m "20.0" # Sets trv temp to 20 degrees
+mosquitto_sub -t "<mqttid>radout/devlist"  # Will display a list of discovered EQ-3 TRVs  
+mosquitto_pub -t "<mqttid>radin/trv/ab:cd:ef:gh:ij:kl/status" -n # Will sends request of a status
+mosquitto_sub -t "<mqttid>radout/status/#"  # will show a status message each time a trv is contacted
+mosquitto_pub -t "<mqttid>radin/trv/ab:cd:ef:gh:ij:kl/settemp" -m "20.0" # Sets trv temp to 20 degrees
 ```
 
 ## Supported Models
