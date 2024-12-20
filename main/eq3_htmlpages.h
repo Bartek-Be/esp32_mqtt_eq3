@@ -177,7 +177,7 @@ const char select_device_entry[] = "<option value=\"%s\">%s</option>";
 const char command_post_device[] = R"EOF(
         </select></td>
         <td><select name="command">
-            <option value="status">send Status</option>
+            <option value="status">Status</option>
             <option value="auto">Auto</option>
             <option value="manual">Manual</option>
             <option value="settemp">Set Temp</option>
