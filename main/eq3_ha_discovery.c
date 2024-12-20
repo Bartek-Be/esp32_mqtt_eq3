@@ -66,6 +66,10 @@ cJSON* generate_ha_therm_payload (char mac[6], char *id) {
     cJSON_AddNumberToObject (root, "temp_step", 0.5);
     // "temperature_unit": "C"
     cJSON_AddStringToObject (root, "temperature_unit", "C");
+    //TODO: Addad
+    // "status_command_topic": "eq3_radin/trv/XX:XX:XX:YY:YY:YY/status"
+    snprintf (buffer, sizeof (buffer), "%sradin/trv/%s/status", id, macstr);
+    cJSON_AddStringToObject (root, "status_command_topic", buffer);
     // "mode_command_topic": "eq3_radin/trv/XX:XX:XX:YY:YY:YY/mode"
     snprintf (buffer, sizeof (buffer), "%sradin/trv/%s/mode", id, macstr);
     cJSON_AddStringToObject (root, "mode_command_topic", buffer);

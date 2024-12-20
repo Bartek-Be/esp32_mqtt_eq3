@@ -62,6 +62,8 @@
 
 /* Request ids for TRV */
 #define PROP_ID_QUERY            0x00
+// TODO: Added
+#define PROP_MODE_READ           0x00
 #define PROP_ID_RETURN           0x01
 #define PROP_INFO_RETURN         0x02
 #define PROP_INFO_QUERY          0x03
@@ -76,6 +78,7 @@
 #define PROP_ECO                 0x44
 #define PROP_BOOST               0x45
 #define PROP_LOCK                0x80
+// TODO: find status request ID
 
 /* Status bits */
 #define AUTO                     0x00
@@ -247,12 +250,13 @@ static void gattc_command_error(esp_bd_addr_t bleda, char *error){
 }
 
 /* Callback function to handle GATT-Client events */
+
 /* While we've discovered the EQ-3 devices with the GAP handler we need to check the service we want is available when we connect
  * so we connect to the device and search its services before we try to set our chosen characteristic */
 
 /* For consideration:
  * do we need to search for the service before attempting to set the characteristic. This will likely have an impact on the EQ-3 battery life
- * although we only comunicate when we need to change something which will likely result in the motor turning which will have a much bigger impact
+ * although we only communicate when we need to change something which will likely result in the motor turning which will have a much bigger impact
  * on the batteries. If we use polling (e.g. repeated unlock to poll the current status) this could be something to think about */
 
 static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param){
@@ -478,8 +482,9 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
                                   current_action.cmd_len, current_action.cmd_val, ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
         }
         break;
-
+    //TODO: to jest event do wywolania
     case ESP_GATTC_NOTIFY_EVT:
+
         /* EQ-3 has sent a notification with its current status */
         /* Decode this and create a json message to send back to the controlling broker to keep state-machine up-to-date and acknowledge settings */
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
@@ -680,6 +685,7 @@ QueueHandle_t timer_queue = NULL;
 typedef enum {
     EQ3_BOOST = 0,
     EQ3_UNBOOST,
+    EQ3_STATUS,
     EQ3_AUTO,
     EQ3_MANUAL,
     EQ3_ECO,
@@ -696,15 +702,14 @@ struct eq3cmd{
     unsigned char cmdparms[MAX_CMD_BYTES];
     int retries;
     struct eq3cmd *next;
-};
+}
 
 static void enqueue_command(struct eq3cmd *newcmd);
 
 struct eq3cmd *cmdqueue = NULL;
 
 /* Task to handle local UART and accept EQ-3 commands for test/debug */
-static void uart_task()
-{
+static void uart_task(){
     const int uart_num = UART_NUM_0;
     uint8_t cmd_buf[1024] = {0};
     uint16_t cmdidx = 0;
@@ -765,7 +770,7 @@ void schedule_reboot(void){
 }
 
 /* Handle an EQ-3 command from uart or mqtt */
-int handle_request(char *cmdstr){
+eq3_bt_cmdint handle_request(char *cmdstr){
     char *cmdptr = cmdstr;
     struct eq3cmd *newcmd;
     eq3_bt_cmd command;
@@ -829,6 +834,11 @@ int handle_request(char *cmdstr){
     if(start == false && strncmp((const char *)cmdptr, "unboost", 7) == 0){
         start = true;
         command = EQ3_UNBOOST;
+    }
+    // TODO: Added. To call from internal webpage
+    if(start == false && strncmp((const char *)cmdptr, "status", 6) == 0){
+        start = true;
+        command = EQ3_STATUS;
     }
     if(start == false && strncmp((const char *)cmdptr, "auto", 4) == 0){
         start = true;
@@ -1000,6 +1010,12 @@ static int setup_command(void){
             break;
         case EQ3_UNBOOST:
             current_action.cmd_val[0] = PROP_BOOST;
+            current_action.cmd_val[1] = 0x00;
+            current_action.cmd_len = 2;
+            break;
+        // TODO: znalesc odpowiednie wywolanie
+        case EQ3_STATUS:
+            current_action.cmd_val[0] = PROP_INFO_RETURN;
             current_action.cmd_val[1] = 0x00;
             current_action.cmd_len = 2;
             break;
