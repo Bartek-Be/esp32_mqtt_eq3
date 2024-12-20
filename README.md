@@ -100,17 +100,18 @@ where the device is indicated by its bluetooth address (MAC)
 
 | Command | Description | Parameters | Examples | Stable since |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| settime | sets the current time on the valve | settime has an optional parameter of the hexadecimal encoded current time.<br>parm is 12 characters hexadecimal yymmddhhMMss (e.g. 13010c0c0a00 is 2019/Jan/12 12:00.00)<br>if no parameter is submitted and ntp is enabled the ntp time (with timezone offset) will be used | *`<mqttid>radin/trv/<eq-3-address>/settime 13010c0c0a00`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/settime 13010c0c0a00` | v1.20 |
-| boost | sets the boost mode | -none - | *`<mqttid>radin/trv/<eq-3-address>/boost`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/boost` | v1.20 |
-| unboost | reset to unboost mode | -none - | *`<mqttid>radin/trv/<eq-3-address>/unboost`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/unboost` | v1.20 |
-| lock | locks the front-panel controls | -none - | *`<mqttid>radin/trv/<eq-3-address>/lock`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/lock` | v1.20 |
-| unlock | release the lock for the front-panel controls | -none - | *`<mqttid>radin/trv/<eq-3-address>/unlock`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/unlock` | v1.20 |
 | auto | enables the internal temperature/time program | -none - | *`<mqttid>radin/trv/<eq-3-address>/auto`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/auto` | v1.20 |
+| boost | sets the boost mode | -none - | *`<mqttid>radin/trv/<eq-3-address>/boost`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/boost` | v1.20 |
+| lock | locks the front-panel controls | -none - | *`<mqttid>radin/trv/<eq-3-address>/lock`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/lock` | v1.20 |
 | manual | disables the internal temperature/time program | -none - | *`<mqttid>radin/trv/<eq-3-address>/manual`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/manual` | v1.20 |
-| offset | sets the room-temperature offset | the temperature to set, this can be -3.5 - +3.5 in 0.5 degree increments | *`<mqttid>radin/trv/<eq-3-address>/offset 3.5`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/offset 3.5` | v1.20 |
-| settemp | sets the required temperature for the valve to open/close at | the temperature to set, this can be 5.0 to 29.5 in 0.5 degree increments| *`<mqttid>radin/trv/<eq-3-address>/settemp 20.0`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/settemp 20.0` | v1.20 |
-| on | opens the valve fully (lcd display 'on') | -none - | *`<mqttid>radin/trv/<eq3-address>/on`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/on` | v1.49 |
 | off | closes the valve fully (lcd display 'off') | -none - | *`<mqttid>radin/trv/<eq3-address>/off`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/off` | v1.49 |
+| offset | sets the room-temperature offset | the temperature to set, this can be -3.5 - +3.5 in 0.5 degree increments | *`<mqttid>radin/trv/<eq-3-address>/offset 3.5`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/offset 3.5` | v1.20 |
+| on | opens the valve fully (lcd display 'on') | -none - | *`<mqttid>radin/trv/<eq3-address>/on`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/on` | v1.49 |
+| settemp | sets the required temperature for the valve to open/close at | the temperature to set, this can be 5.0 to 29.5 in 0.5 degree increments| *`<mqttid>radin/trv/<eq-3-address>/settemp 20.0`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/settemp 20.0` | v1.20 |
+| settime | sets the current time on the valve | settime has an optional parameter of the hexadecimal encoded current time.<br>parm is 12 characters hexadecimal yymmddhhMMss (e.g. 13010c0c0a00 is 2019/Jan/12 12:00.00)<br>if no parameter is submitted and ntp is enabled the ntp time (with timezone offset) will be used | *`<mqttid>radin/trv/<eq-3-address>/settime 13010c0c0a00`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/settime 13010c0c0a00` | v1.20 |
+| status | sends the status return request | -none- | *`<mqttid>radin/trv/<eq-3-address>/status`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/status` | v1.81 |
+| unboost | reset to unboost mode | -none - | *`<mqttid>radin/trv/<eq-3-address>/unboost`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/unboost` | v1.20 |
+| unlock | release the lock for the front-panel controls | -none - | *`<mqttid>radin/trv/<eq-3-address>/unlock`*<br><br>`livingroomradin/trv/ab:cd:ef:gh:ij:kl/unlock` | v1.20 |
 
 In response to every successful command a status message is published to `<mqttid>radout/status/<address>` containing json-encoded details of address, temperature set point, valve open percentage, mode, boost state, lock state and battery state.
 
@@ -158,12 +159,7 @@ Data
 
 ### Read current status
 
-There is no specific command to poll the status of the valve but using any of the commands to re-set the current value will achieve the required result.
-
-Note 1: sending settime command does not affect settings in valve and causes a status message
-
-Note 2: It has been observed that using unboost to poll a valve can result in the valve opening as if in boost mode but without reporting boost mode active on the display or status.
-It is probably not advisable to poll the valve with the unboost command.
+There is specific command to poll the status of the valve `<mqttid>radin/trv/<address>/status` or using any of the commands to re-set the current value will achieve the required result.
 
 ### MQTT Topics
 
@@ -228,7 +224,9 @@ web server is part of Mongoose - [https://github.com/cesanta/mongoose](https://g
 # Connect to a mosquitto broker:
 
 mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/devlist"  # Will display a list of discovered EQ-3 TRVs  
-mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/status/#"  # will show a status message each time a trv is contacted  
+mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/status/#"  # will show a status message each time a trv is contacted
+mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/status/" -m "" # Will sends request of status
+mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radin/trv/ab:cd:ef:gh:ij:kl/status" -m "20.0" # Sedns
 mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radin/trv/ab:cd:ef:gh:ij:kl/settemp" -m "20.0" # Sets trv temp to 20 degrees
 ```
 
