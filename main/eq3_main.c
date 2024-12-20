@@ -62,8 +62,6 @@
 
 /* Request ids for TRV */
 #define PROP_ID_QUERY            0x00
-// TODO: Added
-#define PROP_MODE_READ           0x00
 #define PROP_ID_RETURN           0x01
 #define PROP_INFO_RETURN         0x02
 #define PROP_INFO_QUERY          0x03
@@ -685,6 +683,7 @@ QueueHandle_t timer_queue = NULL;
 typedef enum {
     EQ3_BOOST = 0,
     EQ3_UNBOOST,
+    // TODO: Added
     EQ3_STATUS,
     EQ3_AUTO,
     EQ3_MANUAL,
@@ -702,7 +701,7 @@ struct eq3cmd{
     unsigned char cmdparms[MAX_CMD_BYTES];
     int retries;
     struct eq3cmd *next;
-}
+};
 
 static void enqueue_command(struct eq3cmd *newcmd);
 
@@ -770,7 +769,7 @@ void schedule_reboot(void){
 }
 
 /* Handle an EQ-3 command from uart or mqtt */
-eq3_bt_cmdint handle_request(char *cmdstr){
+int handle_request(char *cmdstr){
     char *cmdptr = cmdstr;
     struct eq3cmd *newcmd;
     eq3_bt_cmd command;
@@ -1013,10 +1012,10 @@ static int setup_command(void){
             current_action.cmd_val[1] = 0x00;
             current_action.cmd_len = 2;
             break;
-        // TODO: znalesc odpowiednie wywolanie
+        // TODO: Added
         case EQ3_STATUS:
-            current_action.cmd_val[0] = PROP_INFO_RETURN;
-            current_action.cmd_val[1] = 0x00;
+            current_action.cmd_val[0] = PROP_INFO_QUERY;
+            current_action.cmd_val[1] = 1;
             current_action.cmd_len = 2;
             break;
         case EQ3_AUTO:
