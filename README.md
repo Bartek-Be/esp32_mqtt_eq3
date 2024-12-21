@@ -161,6 +161,9 @@ Data
 
 There is specific command to poll the status of the valve `<mqttid>radin/trv/<address>/status` or using any of the commands to re-set the current value will achieve the required result.
 
+Note for consideration:
+do we need to search for the service before attempting to set the characteristic. This will likely have an impact on the EQ-3 battery life although we only communicate when we need to change something which will likely result in the motor turning which will have a much bigger impact on the batteries. If we use polling (e.g. repeated unlock to poll the current status) this could be something to think about
+
 ### MQTT Topics
 
 | Key | Description | published | subscriped |
