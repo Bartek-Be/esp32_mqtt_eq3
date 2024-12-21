@@ -1012,8 +1012,7 @@ static int setup_command(void){
             break;
         case EQ3_STATUS:
             current_action.cmd_val[0] = PROP_INFO_QUERY;
-            current_action.cmd_val[1] = 0x01;
-            current_action.cmd_len = 2;
+            current_action.cmd_len = 1;
             break;
         case EQ3_AUTO:
             current_action.cmd_val[0] = PROP_MODE_WRITE;
