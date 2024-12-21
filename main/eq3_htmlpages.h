@@ -186,7 +186,7 @@ const char command_post_device[] = R"EOF(
             <option value="on">On</option>
             <option value="off">Off</option>
             <option value="lock">Lock</option>
-            <option value="unlock">unLock</option>
+            <option value="unlock">Unlock</option>
             <option value="offset">Offset Temp</option>
             <option value="settime">Set Time</option>
         </select></td>
