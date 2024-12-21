@@ -683,7 +683,6 @@ QueueHandle_t timer_queue = NULL;
 typedef enum {
     EQ3_BOOST = 0,
     EQ3_UNBOOST,
-    // TODO: Added
     EQ3_STATUS,
     EQ3_AUTO,
     EQ3_MANUAL,
@@ -834,7 +833,6 @@ int handle_request(char *cmdstr){
         start = true;
         command = EQ3_UNBOOST;
     }
-    // TODO: Added. To call from internal webpage
     if(start == false && strncmp((const char *)cmdptr, "status", 6) == 0){
         start = true;
         command = EQ3_STATUS;
@@ -1012,7 +1010,6 @@ static int setup_command(void){
             current_action.cmd_val[1] = 0x00;
             current_action.cmd_len = 2;
             break;
-        // TODO: Added
         case EQ3_STATUS:
             current_action.cmd_val[0] = PROP_INFO_QUERY;
             current_action.cmd_val[1] = 0x01;
